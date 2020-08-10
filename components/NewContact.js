@@ -33,9 +33,6 @@ export default function NewContact(props) {
 	const [address, setAddress] = useState(contact ? contact.address : "");
 	const [email, setEmail] = useState(contact ? contact.email : "");
 	const [image, setImage] = useState(contact ? contact.image : "");
-
-	//==================================================================================================
-
 	//2 - GET FLATLIST DATA
 	const onSave = () => {
 		let edit = contact !== null;
@@ -62,7 +59,7 @@ export default function NewContact(props) {
 			};
 		}
 
-		//OPTION 1 - ADD TO LOCAL STORAGE DATA
+		//ADD TO LOCAL STORAGE DATA
 		AsyncStorage.getItem("contacts", (err, contacts) => {
 			if (err) alert(err.message);
 			else if (contacts !== null) {
@@ -89,16 +86,8 @@ export default function NewContact(props) {
 			}
 		});
 	};
-	// issues facing to store in local storage toooooocx
-	// const contacts = (person, number) => {
-	// 	sessionStorage.setItem("contactsSessionPerson", person);
-	// 	sessionStorage.setItem("contactsSessionNumber", number);
-	// 	this.setState({ isAuthenticated: true });
-	// };
 
-	//==================================================================================================
-
-	//3 - GENERATE ID
+	// GENERATE ID
 	const generateID = () => {
 		let d = new Date().getTime();
 		let id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (
@@ -112,9 +101,6 @@ export default function NewContact(props) {
 		return id;
 	};
 
-	//==================================================================================================
-
-	//4 - RENDER
 	let disabled = person.length > 0 && text.length > 0 ? false : true;
 	return (
 		<KeyboardAvoidingView
@@ -130,14 +116,15 @@ export default function NewContact(props) {
 						onChangeText={(text) => setPerson(text)}
 						placeholder={"Name"}
 						style={[styles.person]}
+						autoFocus={true}
 						value={person}
 					/>
 					<TextInput
 						onChangeText={(text) => setText(text)}
-						placeholder={"Enter contact"}
-						autoFocus={true}
+						placeholder={"Contact Number "}
+						keyboardType="numeric"
 						style={[styles.text]}
-						maxLength={MAX_LENGTH}
+						maxLength={10}
 						value={text}
 					/>
 					<TextInput
@@ -149,7 +136,7 @@ export default function NewContact(props) {
 						maxLength={10}
 						value={number}
 					/>
-					{/* <TextInput
+					{/*	 <TextInput
 						style={styles.textInput}
 						keyboardType="numeric"
 						onChangeText={(text) => this.onChanged(text)}
@@ -176,7 +163,7 @@ export default function NewContact(props) {
 
 				<View style={styles.buttonContainer}>
 					<View style={{ flex: 1, justifyContent: "center" }}>
-						<Text
+						{/* <Text
 							style={[
 								styles.count,
 								MAX_LENGTH - text.length <= 10 && { color: "red" },
@@ -184,7 +171,7 @@ export default function NewContact(props) {
 						>
 							{" "}
 							{MAX_LENGTH - text.length}
-						</Text>
+						</Text> */}
 					</View>
 					<View style={{ flex: 1, alignItems: "flex-end" }}>
 						<TouchableHighlight
